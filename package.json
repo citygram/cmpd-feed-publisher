@@ -1,0 +1,15 @@
+{
+  "name": "cmpd-feed-publisher",
+  "version": "0.1.0",
+  "main": "publisher.js",
+  "author": "Andrew Douglass",
+  "dependencies": {
+    "logfmt":  "~0.21.0",
+    "express": "~3.5.0",
+    "request": "~2.34.0",
+    "xml2js":  "~0.4.1"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
