@@ -21,8 +21,8 @@ app.get('/', function(req, res) {
         result.rows.forEach(function(item) {
           var event = {};
           event.message = item.message;
-          event.lat = item.lat;
-          event.lon = item.lon;
+          event.latitude = parseFloat(item.lat);
+          event.longitude = parseFloat(item.lon);
 
           data.events.push(event);
         });
