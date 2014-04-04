@@ -3,7 +3,6 @@ var request = require("request");
 var xml2js  = require('xml2js').parseString;
 
 var connString = process.env.DATABASE_URL || 'postgres://localhost:5432/cmpd_feed';
-//var client = new pg.Client(conString);
 
 var remote_feed = {};
 
@@ -32,10 +31,6 @@ request("http://maps.cmpd.org/datafeeds/accidentsgeorss.ashx", function(error, r
         var db_feed = [];
 
         result.rows.forEach(function(item) {
-          // IF IN BOTH, IGNORE
-          if(item.event_no in remote_feed) {
-            console.log("No change to item:  " + item.event_no);
-          }
 
           // IF IN DB BUT NOT FEED, MARK AS COMPLETE
           if(!(item.event_no in remote_feed)) {
@@ -51,9 +46,7 @@ request("http://maps.cmpd.org/datafeeds/accidentsgeorss.ashx", function(error, r
                   q += item.lon +", ";
                   q += "now()";
                   q += ")";
-              client.query(q, function(err, result) {
-                console.log("Marked as closed: " + item.event_no);
-              });
+              client.query(q);
             });
           }
 
@@ -74,10 +67,7 @@ request("http://maps.cmpd.org/datafeeds/accidentsgeorss.ashx", function(error, r
                 q += remote_feed[item].lon +", ";
                 q += "now()";
                 q += ")";
-            
-            client.query(q, function(err, result) {
-              console.log("Added new item:   " + item);
-            });
+            client.query(q);
           }
         });
       });
